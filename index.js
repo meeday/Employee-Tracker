@@ -7,3 +7,8 @@ const Questions = require("./lib/questions");
 
 const newSearch = new UserSearch();
 const questions = new Questions();
+
+const init = () => {
+  console.log("Welcome to Employee Tracker");
+  loadMenu();
+}
