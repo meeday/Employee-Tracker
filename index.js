@@ -82,3 +82,11 @@ const viewEmployeesByManager = async () => {
   });
   loadMenu();
 }
+
+const viewAllRoles = async () => {
+  await newSearch.viewAllRoles()
+  .then(res => {
+    console.table(res);
+  });
+  loadMenu();
+}
