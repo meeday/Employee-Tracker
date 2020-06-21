@@ -48,3 +48,37 @@ const loadMenu = async () => {
       }        
   });   
 }
+
+const viewEmployeesByManager = async () => {
+  let managers;
+  let managerList;
+
+  await newSearch.getAllManagerNames()
+  .then(res => {
+      managers = res; 
+      managerList = managers.map(e => e.name);                    
+      managerList.push("Cancel");                        
+  });           
+               
+  await inquirer.prompt({
+      message:"Choose a manager:",
+      type: "list",
+      choices: managerList,
+      name: "choice"
+  }).then(async function(answer){
+      switch (answer.choice){
+      case "Cancel":
+          
+          break;
+      default:
+          
+          manager = managers.find(e => e.name === answer.choice);
+          await newSearch.getEmployeesByManager(manager).then(res => {
+              console.table(res);
+          });
+          break;
+      }
+      
+  });
+  loadMenu();
+}
