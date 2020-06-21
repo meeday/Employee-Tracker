@@ -4,3 +4,6 @@ const consoleTable = require("console.table");
 
 const UserSearch = require("./lib/UserSearch");
 const Questions = require("./lib/questions");
+
+const newSearch = new UserSearch();
+const questions = new Questions();
