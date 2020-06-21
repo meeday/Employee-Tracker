@@ -203,3 +203,51 @@ const updateEmployeeRole = async () => {
   loadMenu();
 
 }
+
+const addEmployee = async () => {
+  let q = questions.addEmployee;
+  let managers;
+  let managerNames;
+  let roles;
+  let roleNames;
+  
+  await newSearch.getAllManagerNames().then(res=>{
+      managerNames = res.map(e=>e.name);
+      managers = res;
+      managerNames.push("None");
+  });
+
+  await newSearch.getAllRoles().then(res=>{
+      roles = res;
+      roleNames = res.map(e=>e.title);
+  });
+
+  q.find(e => e.name === "role").choices = roleNames;
+  q.find(e => e.name === "role").pageSize = roleNames.length;
+  q.find(e => e.name === "manager").choices = managerNames;
+  q.find(e => e.name === "manager").pageSize = managerNames.length;
+  
+  await inquirer.prompt(q)
+  .then(async answers => {
+      
+      let role_id = roles.find(e=>e.title === answers.role).id;
+      
+      let manager_id = answers.manager === "None"?null: managers.find(e => e.name === answers.manager).id;
+      
+      let employee = {
+          first_name: answers.first_name,
+          last_name: answers.last_name,
+          role_id: role_id,
+          manager_id: manager_id 
+      };
+
+      await newSearch.addEmployee(employee)
+      .then(res=>{
+          console.log("New Employee ID: " + res);
+      });
+
+  });
+  
+  loadMenu();
+}
+
