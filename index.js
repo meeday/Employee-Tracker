@@ -1,18 +1,23 @@
+// npm modules required
 const mysql = require("mysql");
 const inquirer = require("inquirer");
 const consoleTable = require("console.table");
 
+// Classes required in for use in this file
 const UserSearch = require("./lib/UserSearch");
 const Questions = require("./lib/questions");
 
+// new instance of classes created
 const newSearch = new UserSearch();
 const questions = new Questions();
 
+// init function runs when user starts the node application
 const init = () => {
   console.log("Welcome to Employee Tracker");
   loadMenu();
 }
 
+// loadmenu function contains the options the user will be presented with. this is the homescreen of the app and its a switch loop.
 const loadMenu = async () => {
   await inquirer.prompt(questions.startPage)
   .then(async answers => {
@@ -49,6 +54,7 @@ const loadMenu = async () => {
   });   
 }
 
+// functions to get various data from the database. using the methods from UserSearch and the prompts from the questions class
 const viewEmployeesByManager = async () => {
   let managers;
   let managerList;
@@ -74,12 +80,14 @@ const viewEmployeesByManager = async () => {
           
           manager = managers.find(e => e.name === answer.choice);
           await newSearch.getEmployeesByManager(manager).then(res => {
+            // console.table to display res in table format
               console.table(res);
           });
           break;
       }
       
   });
+  // call loadMenu function so that the user is redirected to the main menu
   loadMenu();
 }
 
