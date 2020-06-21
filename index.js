@@ -98,3 +98,11 @@ const viewAllDepartments = async () => {
   });
   loadMenu();
 }
+
+const getAllEmployeesFullData = async () => {
+  await newSearch.getAllEmployeesFullData()
+  .then(res => {
+    console.table(res);
+  });
+  loadMenu();
+}
