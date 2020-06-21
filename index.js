@@ -120,3 +120,36 @@ const addDepartment = async () => {
   loadMenu();
 
 }
+
+const addRole = async () => {
+  let q = questions.addRole;
+  let departments;
+  let departmentNames;
+  
+  await newSearch.getAllDepartments().then(res=>{
+      departmentNames = res.map(e=>e.name);
+      departments = res;
+  });
+
+  //set the list of choices
+  q.find(e=>e.name === "department").choices = departmentNames;
+  q.find(e=>e.name === "department").pageSize = departmentNames.length;
+
+  await inquirer.prompt(q)
+  .then(async answers => {
+      
+      let role = {
+          title: answers.title,
+          salary: answers.salary,
+          department_id: departments.find(e=>e.name === answers.department).id
+      };
+
+      await newSearch.addRole(role)
+      .then(res=>{
+          console.log(res);
+      });
+
+  });
+  
+  loadMenu();
+}
