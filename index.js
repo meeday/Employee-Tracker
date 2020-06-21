@@ -251,3 +251,5 @@ const addEmployee = async () => {
   loadMenu();
 }
 
+init();
+
