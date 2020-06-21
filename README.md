@@ -46,6 +46,10 @@ Week-12 assignment
   ## __Tests__
   none
 
+  ## __Links__
+  Demo video [https://drive.google.com/file/d/1l2_sEO37sF2djADWWzOYdOfBfrS_W7aw/view]
+  Github Repository [https://github.com/meeday/Employee-Tracker]
+
   ## __Questions__
 
   [![Ask Me Anything !](https://img.shields.io/badge/Ask%20me-anything-1abc9c.svg)](https://GitHub.com"/meeday)
