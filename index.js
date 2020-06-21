@@ -153,3 +153,53 @@ const addRole = async () => {
   
   loadMenu();
 }
+
+const updateEmployeeRole = async () => {
+  let q = questions.updateEmployeeRole;
+  let confirm = questions.confirmInput;
+  let roles;
+  let roleNames;
+  let employees;
+  let employeeNames;
+  let employee;
+  let role;
+
+  await newSearch.getAllRoles().then(res=>{
+      roles = res;
+      roleNames = res.map(e=>e.title);
+  });
+
+  await newSearch.getAllEmployees().then(res=>{
+      employees = res;
+      employeeNames = res.map(e => `${e.first_name} ${e.last_name}`);
+  });
+
+  q.find(e=>e.name === "employee").choices = employeeNames;
+  q.find(e=>e.name === "employee").pageSize = employeeNames.length;
+  q.find(e=>e.name === "role").choices = roleNames;
+  q.find(e=>e.name === "role").pageSize = roleNames.length;
+  
+  await inquirer.prompt(q)
+  .then(async answers => {
+  
+      employee = employees.find(e=> `${e.first_name} ${e.last_name}` === answers.employee);
+      role = roles.find(e=>e.title === answers.role);
+
+  });
+
+  confirm.message = `Would you like to update the role of ${employee.first_name} ${employee.last_name} to ${role.title}? Please Confirm`;
+
+  await inquirer.prompt(confirm)
+  .then(async answer => {
+      if(answer.confirm){
+          await newSearch.updateEmployeeRole(employee,role)
+          .then(res=>{
+              console.log(res);
+              return;
+          });
+      }
+  });
+
+  loadMenu();
+
+}
