@@ -90,3 +90,11 @@ const viewAllRoles = async () => {
   });
   loadMenu();
 }
+
+const viewAllDepartments = async () => {
+  await newSearch.getAllDepartments()
+  .then(res => {
+    console.table(res);
+  });
+  loadMenu();
+}
