@@ -1,12 +1,9 @@
-const mysql = require("mysql");
 
-class connection {
-  constructor(host,port,user,password,database){
-    this.host = host;
-    this.port = port;
-    this.user = user;
-    this.password = password;
-    this.database = database;
-  }
+const details = {
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: "Nightrise-1!",
+  database: "employees_db"
 }
-module.exports = connection;
+module.exports = details;
