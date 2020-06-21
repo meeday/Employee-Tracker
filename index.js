@@ -106,3 +106,17 @@ const getAllEmployeesFullData = async () => {
   });
   loadMenu();
 }
+
+const addDepartment = async () => {
+    
+  await inquirer.prompt(questions.addDepartment)
+  .then(async answer => {        
+      await newSearch.addDepartment(answer.department)
+      .then(res => {
+          console.log(`New Department ID: ${res}`);
+      });
+  });
+  
+  loadMenu();
+
+}
